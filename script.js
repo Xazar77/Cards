@@ -3,11 +3,24 @@
 const cinemaActors = () => {
 
 
-    const cardsHeroes = document.querySelector('.cards-heroes');
-    const listMovies = document.querySelector('.list-actors');
+    const cardsHeroes = document.querySelector('.movie-card');
+    const listMovies = document.querySelector('#select-movie');
 
     let cartArray = [];
     let movieArr = [];
+
+
+    const getData = (url) => {
+        return fetch(url)
+            .then(res => res.json())
+            .then(data => {
+
+                renderItems(data);
+
+            })
+            .catch(error => console.log(error));
+    };
+    getData('dbHeroes.json');
 
     const renderItems = (data) => {
         
@@ -18,22 +31,30 @@ const cinemaActors = () => {
             const card = document.createElement('div');
              
             card.classList.add('card');
+            card.style.cssText = `
+                height: 600px;
+                width: 300px;
+                background-color: rgba(212, 177, 250, 0.4);
+                border-radius: 15px;
+                margin-left: 10px;
+                margin-rigth: 10px;
+                margin-bottom: 10px;
+                `;
          
             
             card.innerHTML = `
-            <img src=${photo} alt=${name} class="card-image" />
-            <div class="card-text">
-                <div class="card-heading">
-                    <h1 class="card-title card-title-name">${name}</h1>
-                    <h2 class="card-title card-title-actors">${actors}</h2>
-                    <h3 class="card-title card-title-status">${status}</h3>
-                </div>
-            
-                <div class="card-info">
-                    <div class ="movies" > ${movies}</div>
-                </div>
-                      
-           `;
+                
+                    <h3 class="name">${name}</h3>
+                     <div class="poster">
+                         <img src=${photo} alt="">
+                     </div>
+                     <h3 class="actors">${actors}</h3>
+                     <div class="movie-name">
+                         <div class="movies">${movies}</div>
+                     </div>
+                    <h4 class="status">${status}</h4>
+               ` ;
+
            if (movies != null) {
                
             movieArr.push(movies);
@@ -58,7 +79,6 @@ const cinemaActors = () => {
             const cardItem = document.querySelectorAll('.card');
             const movieItem = document.querySelectorAll('.card .movies');
             
-             console.log(movieItem[0]);
                      
             cardItem.forEach((el, index) => {
 
@@ -90,7 +110,7 @@ const cinemaActors = () => {
     const renderMovies = () => {
         
         let arr = JSON.parse(localStorage.getItem('movies'));
-       
+       console.log(arr);
         let arrUnique = arrayUnique(arr.join().split(','));
         console.log(arrUnique);
        
@@ -113,17 +133,7 @@ const cinemaActors = () => {
 
 
 
-     const getData = (url) => {
-         return fetch(url)
-             .then(res => res.json())
-             .then(data => {
-               
-                renderItems(data);
-                 
-             })
-             .catch(error => console.log(error));
-     };
-     getData('dbHeroes.json');
+
 
 };
 
