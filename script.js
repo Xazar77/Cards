@@ -49,7 +49,7 @@ const cinemaActors = () => {
         });
 
         movieArr = JSON.parse(localStorage.getItem('movies'));
-        
+        // console.log(movieArr);
        
         listMovies.addEventListener('change', (e) => {
            
@@ -89,9 +89,10 @@ const cinemaActors = () => {
 
     const renderMovies = () => {
         
-        const arr = JSON.parse(localStorage.getItem('movies'));
+        let arr = JSON.parse(localStorage.getItem('movies'));
        
         let arrUnique = arrayUnique(arr.join().split(','));
+        console.log(arrUnique);
        
             arrUnique.forEach((el, index) => {
                 
